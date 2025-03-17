@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Join Me?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .card {
+      box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.2);
+      background-color: pink;
+      border-radius: 1rem;
+      width: 500px;
+      height: 57px;
+      padding: 10px;
+      font-size: 12px;
+      color: white;
+    }
+
+    .button-group {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .yes-btn {
+      border-radius: 1rem;
+      height: 45px;
+      width: 120px;
+      padding: 10px;
+      border: none;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      background-color: skyblue;
+      transition: all 0.3s;
+    }
+
+    .yes-btn:hover {
+      background-color: rgba(135, 206, 235, 0.8);
+      color: black;
+    }
+
+    .no-btn {
+      border-radius: 1rem;
+      height: 45px;
+      width: 120px;
+      padding: 10px;
+      border: none;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      background-color: red;
+      transition: all 0.3s;
+    }
+
+    .no-btn:hover {
+      background-color: rgba(255, 0, 0, 0.8);
+      color: black;
+    }
+
+    #next {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #next .congrats-cards {
+      background-color: white;
+      padding: 20px;
+      border-radius: 1rem;
+      box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.2);
+      font-size: 18px;
+      width: 280px;
+      height: 40px;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+
+    .img-container {
+      width: auto;
+      height: auto;
+      border-radius: 0.5rem;
+      position: absolute;
+    }
+
+    .right {
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+      width: 50px;
+      height: 50px;
+      background-repeat: no-repeat;
+      top: 600px;
+      right: 550px;
+    }
+
+    .left {
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+      width: 50px;
+      height: 50px;
+      background-repeat: no-repeat;
+      right: 1190px;
+    }
+
+    .bottom {
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+      width: 50px;
+      height: 50px;
+      background-repeat: no-repeat;
+      left: 1350px;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .fade-out {
+      animation: fadeOut 1s ease-in-out forwards;
+    }
+
+    #introVideo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      /* Keep it behind text */
+    }
+
+    #NextVideo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    @media (max-width: 600px) {
+
+      .yes-btn,
+      .no-btn {
+        width: 100px;
+        height: 40px;
+        font-size: 14px;
+      }
+
+      .card {
+        width: 40%;
+        /* Make it fit within smaller screens */
+        font-size: 9px;
+        /* Slightly larger text for readability */
+        padding: 15px;
+        /* More padding for better spacing */
+      }
+
+      .congrats-cards {
+        font-size: 16px;
+      }
+
+      .img-container {
+        max-width: 25%;
+      }
+
+      #NextVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+      }
+
+      #introVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+      }
+
+      #next .congrats-cards {
+        width: 30%;
+        /* Makes it fit well on mobile */
+        font-size: 12px;
+        /* Slightly reduce text size */
+        padding: 15px;
+        /* Less padding for better fit */
+      }
+
+      .img-container {
+        width: 90%;
+        /* Adjusts size for smaller screens */
+        position: relative;
+        /* Prevents absolute positioning issues */
+        margin: 0 auto;
+        /* Centers the image */
+        display: block;
+      }
+
+      .right {
+        top: 40vh;
+        /* Moves it up slightly */
+        right: 1vh;
+        /* Keeps it within screen */
+        width: 40px;
+        /* Slightly smaller */
+        height: 40px;
+        left: 1vh;
+      }
+
+      .left {
+        right: 30vh;
+        width: 40px;
+        height: 40px;
+        top: 19vh
+        
+      }
+
+      .bottom {
+        left: 10vh;
+        /* Moves it closer on small screens */
+        width: 40px;
+        /* Slightly smaller */
+        height: 40px;
+        bottom: 8vh;
+        /* Adjust height for better visibility */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="main" class="container">
+
+    <video id="introVideo" autoplay loop playsinline>
+      <source src="video1.mp4" type="video/mp4">
+    </video>
+
+    <div class="card">
+      <h1>Do you want to watch attack on titan</h1>
+    </div>
+    <div class="button-group">
+      <button class="yes-btn" onclick="showCongrats()">Yes</button>
+      <button class="no-btn" id="noButton">No</button>
+    </div>
+  </div>
+
+  <div id="next" style="display: none;">
+    <video id="NextVideo" autoplay playsinline muted>
+      <source src="AnimePahe_Shingeki_no_Kyojin_Eng_Dub_-_31_BD_360p_MTBB.mp4" type="video/mp4">
+    </video>
+    <img src="robot-chatbot-icon-sign-free-vector.jpg" class="img-container left">
+    <img src="robot-chatbot-icon-sign-free-vector.jpg" class="img-container right">
+    <img src="robot-chatbot-icon-sign-free-vector.jpg" class="img-container bottom">
+    <div class="congrats-cards">
+      <h3>Your In! Enjoy.........</h3>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const noButton = document.getElementById("noButton");
+      const yesButton = document.querySelector(".yes-btn");
+      const card = document.querySelector(".card");
+
+
+      // Initial display settings
+      main.style.display = "flex";
+      next.style.display = "none";
+
+      let yesButtonWidth = 120;
+      let yesButtonHeight = 45;
+      let yesButtonFontSize = 16;
+      let clickCount = 0;
+
+      const messages = [
+        "Sure?",
+        "Titans!",
+        "Scouts!",
+        "Levi...",
+        "Erwin...",
+        "Mikasa...",
+        "Eren!",
+        "Sasageyo!",
+        "Rumbling!",
+        "Run!"
+      ];
+
+      noButton.addEventListener("click", function () {
+        // Randomly reposition the "No" button
+        const maxX = window.innerWidth - noButton.offsetWidth;
+        const maxY = window.innerHeight - noButton.offsetHeight;
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        noButton.style.position = "absolute";
+        noButton.style.left = randomX + "px";
+        noButton.style.top = randomY + "px";
+
+        // Grow the "Yes" button
+        if (yesButtonWidth < 10000000) {
+          yesButtonWidth += 20;
+          yesButtonHeight += 8;
+          yesButtonFontSize += 2;
+          yesButton.style.width = yesButtonWidth + "px";
+          yesButton.style.height = yesButtonHeight + "px";
+          yesButton.style.fontSize = yesButtonFontSize + "px";
+        }
+
+        // Hide the card when "Yes" button covers the screen
+        if (yesButtonWidth >= window.innerWidth && yesButtonHeight >= window.innerHeight) {
+          card.style.display = "none";
+        }
+
+        // Update "No" button text
+        noButton.textContent = clickCount < messages.length ? messages[clickCount] : "Please";
+        clickCount++;
+      });
+    });
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      let introVideo = document.getElementById("introVideo");
+      let nextVideo = document.getElementById("NextVideo");
+
+      introVideo.muted = true;
+      nextVideo.muted = true;
+
+      document.body.addEventListener("click", function () {
+        introVideo.muted = false;
+        nextVideo.muted = false;
+      }, { once: true }); // Unmute only on the first click
+    });
+
+    function showCongrats() {
+      let main = document.getElementById("main");
+      let next = document.getElementById("next");
+      let introVideo = document.getElementById("introVideo");
+      let nextVideo = document.getElementById("NextVideo");
+      let congratsCard = document.querySelector(".congrats-cards");
+      let images = document.querySelectorAll(".img-container");
+
+      // Stop the first video
+      introVideo.pause();
+      introVideo.currentTime = 0;
+
+      // Show the new section
+      main.style.display = "none";
+      next.style.display = "flex";
+
+      // Try to autoplay the next video
+      let playPromise = nextVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          nextVideo.muted = false;
+        }).catch(() => {
+          console.log("Autoplay blocked. Waiting for user interaction.");
+          document.body.addEventListener("click", function () {
+            nextVideo.muted = false;
+            nextVideo.play();
+          }, { once: true });
+        });
+      }
+
+      // Apply fade-out effect after a delay
+      setTimeout(() => {
+        congratsCard.classList.add("fade-out");
+        images.forEach(img => img.classList.add("fade-out"));
+      }, 5000); // Fades out after 3 seconds
+    }
+
+  </script>
+</body>
+
+</html>
