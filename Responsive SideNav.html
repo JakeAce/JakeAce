@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        ul.sidenav {
+            background-color: antiquewhite;
+            width: 30%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            position: fixed;
+            overflow: auto;
+        }
+
+        ul.sidenav li a {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 15px 180px;
+            font: normal small-caps 450 20px Times New Roman;
+        }
+
+        ul.sidenav li a:hover:not(.active) {
+            background-color: orange;
+        }
+
+        ul.sidenav li a.active {
+            background-color: green;
+            color: white;
+        }
+
+        @media screen and (max-width: 900px) {
+            ul.sidenav {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            ul.sidenav li a {
+                float: left;
+                padding: 15px;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            ul.sidenav li a {
+                text-align: center;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul class="sidenav">
+        <li><a href="" target="_blank" class="active">Home</a></li>
+        <li><a href="" target="_blank">About</a></li>
+        <li><a href="" target="_blank">Contact</a></li>
+        <li><a href="" target="_blank">Services</a></li>
+    </ul>
+</body>
+</html>
